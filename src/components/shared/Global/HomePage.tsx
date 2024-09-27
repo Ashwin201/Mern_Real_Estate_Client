@@ -13,7 +13,52 @@ import img3 from "../../../../public/assets/person.jpeg";
 import usePostStore from "@/store/post";
 import PostCard from "./PostCard";
 import CardSkeletons from "../Skeletons/CardSkeletons";
-
+const features = [
+    {
+        icon: DollarSign,
+        title: "Property Insurance",
+        description: "Protect your property with comprehensive insurance coverage. "
+    },
+    {
+        icon: Building,
+        title: "Tax Advantage",
+        description: "Maximize your tax benefits with our expert advice. "
+    },
+    {
+        icon: Users,
+        title: "Lowest Commission",
+        description: "Enjoy the lowest commission rates in the market."
+    },
+]
+const whyChooseUs = [
+    {
+        icon: DollarSign,
+        title: "Property Insurance",
+        description: "Protect your property with comprehensive insurance coverage. Our plans cover a wide range of risks, ensuring your investment is secure."
+    },
+    {
+        icon: Building,
+        title: "Tax Advantage",
+        description: "Maximize your tax benefits with our expert advice. Our professionals help you navigate tax laws, ensuring you get the most out of your returns."
+    },
+    {
+        icon: Users,
+        title: "Lowest Commission",
+        description: "Enjoy the lowest commission rates in the market. We offer competitive rates, ensuring you save more on every transaction."
+    },
+]
+const reviews = [
+    {
+        image: img2,
+        name: "Julie Robert",
+        review: "Homio has made finding my dream rental property a breeze. The platform is user-friendly, and the listings are comprehensive. Highly recommended!"
+    },
+    {
+        image: img3,
+        name: "John Doe",
+        review: "I've been using Homio for a few months now, and I'm extremely satisfied. The customer support is top-notch, and the property search features are fantastic."
+    },
+];
 const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
@@ -108,16 +153,12 @@ export default function HomePage() {
 
                 <AnimatedSection>
                     <section className="px-6 py-14 bg-white">
-                        <div className="max-w-6xl mx-auto space-y-8">
+                        <div className="max-w-6xl mx-auto space-y-14">
                             <motion.h2 className="text-3xl font-bold text-center" variants={fadeInUp}>
                                 How it works?
                             </motion.h2>
                             <div className="grid gap-8 grid-cols-2 md:grid-cols-3">
-                                {[
-                                    { icon: Building, title: "Select Property" },
-                                    { icon: Users, title: "Select Agent" },
-                                    { icon: Home, title: "Choose House" },
-                                ].map((item, index) => (
+                                {features?.map((item, index) => (
                                     <motion.div
                                         key={index}
                                         className="flex flex-col items-center text-center space-y-3"
@@ -128,8 +169,8 @@ export default function HomePage() {
                                             <item.icon className="w-9 h-9 text-blue-500" />
                                         </div>
                                         <h3 className="font-semibold text-lg mb-2">{item.title}</h3>
-                                        <p className="text-sm tracking-normal text-gray-400">
-                                            We are a real estate agency that will help you find the best residence you dream of.
+                                        <p className="text-sm tracking-normal text-gray-500 font-normal ">
+                                            {item?.description}
                                         </p>
                                     </motion.div>
                                 ))}
@@ -160,13 +201,13 @@ export default function HomePage() {
                                 />
                                 <div className="absolute inset-0 bg-blue-500 rounded-lg opacity-20" />
                             </motion.div>
-                            <motion.div className="space-y-4 lg:justify-start " variants={fadeInUp}>
+                            <motion.div className="space-y-4 lg:justify-start  px-1" variants={fadeInUp}>
                                 <h2 className="text-3xl font-bold">We always select best properties for you.</h2>
                                 <p className="text-gray-500">
                                     There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected
                                     humour, or randomised words which don&apos;t look even slightly believable.
                                 </p>
-                                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4">
+                                <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-4 pt-4">
                                     {[
                                         { value: "20+", label: "Years Experience" },
                                         { value: "50+", label: "Property Sell" },
@@ -174,7 +215,7 @@ export default function HomePage() {
                                     ].map((item, index) => (
                                         <motion.div key={index} variants={fadeInUp}>
                                             <p className="text-3xl font-bold mb-2">{item.value}</p>
-                                            <p className="text-base font-medium text-gray-500">{item.label}</p>
+                                            <p className="text-base font-medium text-gray-500 font-normal ">{item.label}</p>
                                         </motion.div>
                                     ))}
                                 </div>
@@ -185,16 +226,12 @@ export default function HomePage() {
 
                 <AnimatedSection>
                     <section className="px-6 py-14 bg-white">
-                        <div className="max-w-6xl mx-auto space-y-10">
+                        <div className="max-w-6xl mx-auto space-y-14">
                             <motion.h2 className="text-3xl font-bold text-center" variants={fadeInUp}>
                                 Why Choose Us
                             </motion.h2>
-                            <div className="grid gap-8 md:grid-cols-3">
-                                {[
-                                    { icon: DollarSign, title: "Property Insurance" },
-                                    { icon: Building, title: "Tax Advantage" },
-                                    { icon: Users, title: "Lowest Commission" },
-                                ].map((item, index) => (
+                            <div className="grid gap-8 md:grid-cols-3 ">
+                                {whyChooseUs.map((item, index) => (
                                     <motion.div key={index} variants={fadeInUp} whileHover={{ scale: 1.05 }}>
                                         <Card className="bg-slate-100">
                                             <CardHeader>
@@ -204,8 +241,8 @@ export default function HomePage() {
                                                 <CardTitle className="text-lg">{item.title}</CardTitle>
                                             </CardHeader>
                                             <CardContent>
-                                                <p className="text-sm text-gray-400 mt-2">
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis.
+                                                <p className="text-sm text-gray-500 font-normal  mt-2">
+                                                    {item?.description}
                                                 </p>
                                             </CardContent>
                                         </Card>
@@ -235,9 +272,9 @@ export default function HomePage() {
                                             </motion.div>
                                         ))}
                                     </div> :
-                                    <div className=' flex flex-col gap-3 items-center justify-center my-16'>
-                                        <MessageCircleWarning className=' h-16 w-16 text-gray-500' />
-                                        <p className=' text-lg font-semibold text-gray-500'>Property not available.</p>
+                                    <div className=' flex flex-col gap-3 items-center justify-center py-28'>
+                                        <MessageCircleWarning className=' h-16 w-16 text-gray-500 font-normal ' />
+                                        <p className=' text-lg font-semibold text-gray-500 font-normal '>Property not available.</p>
                                     </div>
                             }
                             {/* {
@@ -257,18 +294,14 @@ export default function HomePage() {
                                 What our Client are Saying
                             </motion.h2>
                             <div className="grid gap-8 md:grid-cols-2">
-                                {[
-                                    { image: img2, name: "Julie Robert" },
-                                    { image: img3, name: "John Doe" },
-                                ].map((item, index) => (
+                                {reviews?.map((item, index) => (
                                     <motion.div key={index} variants={fadeInUp} whileHover={{ scale: 1.05 }}>
                                         <Card className="">
                                             <CardContent className="flex items-start space-x-4 pt-6">
                                                 <Image src={item.image} className="w-10 h-10 rounded-full object-cover" alt="Image" />
                                                 <div>
                                                     <p className='text-sm text-gray-500'>
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus
-                                                        leo.
+                                                        {item?.review}
                                                     </p>
                                                     <p className='mt-2 font-semibold'>{item.name}</p>
                                                 </div>

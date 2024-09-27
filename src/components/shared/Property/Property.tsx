@@ -34,7 +34,7 @@ const Property = () => {
             <div className=' flex flex-row justify-between md:justify-start md:flex-col gap-5 md:gap-10'>
                 <div>
                     <h2 className=' text-2xl font-bold'>View Top Listing Properties</h2>
-                    <CardDescription className=' mt-1 text-base font-medium'>Here you will find all properties posted by their owners.</CardDescription>
+                    <CardDescription className=' mt-2 text-base font-medium text-gray-400'>Here you will find all properties posted by their owners.</CardDescription>
                 </div>
                 <FilterPosts />
             </div>

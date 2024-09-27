@@ -103,7 +103,7 @@ const Header = () => {
 
 
             <Link href="/" aria-label="logo" >
-                <Image src={logoImage} alt="logo" className="  w-12 sm:w-16 h-auto" />
+                <Image src={logoImage} alt="logo" className="  w-14 sm:w-16 h-auto" />
             </Link>
 
             <div className=" ">
@@ -175,7 +175,7 @@ const Header = () => {
                         </DropdownMenuContent>
                     </DropdownMenu>
                     : <div className=" hidden sm:flex items-center gap-2">
-                        <Button variant={"outline"}>
+                        <Button variant={"outline"} className=" hidden md:flex">
                             <Link href={"/login"} aria-label="Login">Sign In</Link>
                         </Button>
                         <Button >
@@ -197,8 +197,8 @@ const Header = () => {
                     </SheetTrigger>
                     <SheetContent side="left" className="flex flex-col ">
                         <div className=" flex flex-col gap-5 -mx-2.5 ">
-                            <Link href="/" aria-label="logo" className=" -mt-3.5 ">
-                                <Image src={logoImage} alt="logo" className="  w-12 h-auto" />
+                            <Link href="/" aria-label="logo" className=" -mt-3 ">
+                                <Image src={logoImage} alt="logo" className="  w-14 h-auto" />
                             </Link>
                             <nav className="flex flex-col w-full gap-2 text-lg font-medium  mt-3">
                                 {

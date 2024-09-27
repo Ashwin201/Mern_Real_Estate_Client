@@ -191,7 +191,8 @@ function Cart() {
                                         </DialogContent>
                                     </Dialog>
 
-                                    <Button disabled={checkoutLoading} onClick={makePayment} className="w-full flex gap-2 items-center"><CheckCircleIcon className=" h-5 w-5" />{checkoutLoading ? " Processing..." : "Proceed to Checkout"}</Button>
+                                    <Button disabled={checkoutLoading} onClick={makePayment} className="w-full flex gap-2 items-center"><CheckCircleIcon className=" h-5 w-5" />
+                                        {checkoutLoading ? " Processing..." : "Book Now"}</Button>
                                 </CardFooter>
                             </Card>
                         </div>
