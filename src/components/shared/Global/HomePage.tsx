@@ -215,7 +215,7 @@ export default function HomePage() {
                                     ].map((item, index) => (
                                         <motion.div key={index} variants={fadeInUp}>
                                             <p className="text-3xl font-bold mb-2">{item.value}</p>
-                                            <p className="text-base font-medium text-gray-500 font-normal ">{item.label}</p>
+                                            <p className="text-base font-medium text-gray-500 ">{item.label}</p>
                                         </motion.div>
                                     ))}
                                 </div>
@@ -274,7 +274,7 @@ export default function HomePage() {
                                     </div> :
                                     <div className=' flex flex-col gap-3 items-center justify-center py-28'>
                                         <MessageCircleWarning className=' h-16 w-16 text-gray-500 font-normal ' />
-                                        <p className=' text-lg font-semibold text-gray-500 font-normal '>Property not available.</p>
+                                        <p className=' text-lg font-semibold text-gray-500  '>Property not available.</p>
                                     </div>
                             }
                             {/* {
