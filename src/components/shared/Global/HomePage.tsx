@@ -230,7 +230,7 @@ export default function HomePage() {
                             <motion.h2 className="text-3xl font-bold text-center" variants={fadeInUp}>
                                 Why Choose Us
                             </motion.h2>
-                            <div className="grid gap-8 md:grid-cols-3 ">
+                            <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 ">
                                 {whyChooseUs.map((item, index) => (
                                     <motion.div key={index} variants={fadeInUp} whileHover={{ scale: 1.05 }}>
                                         <Card className="bg-slate-100">

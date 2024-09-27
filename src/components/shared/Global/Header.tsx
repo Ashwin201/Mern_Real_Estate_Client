@@ -22,7 +22,7 @@ import { useToast } from "@/hooks/use-toast"
 import useUserStore from "@/store/auth"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import useCartStore from "@/store/cart"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import useWishlistStore from "@/store/wishlist"
 const navLinks = [
     {
@@ -52,7 +52,7 @@ const Header = () => {
     const { user, setUser } = useUserStore()
     const { cartCount, fetchCart } = useCartStore()
     const { wishlistCount, fetchWishlist } = useWishlistStore()
-
+    const [open, setOpen] = useState<boolean>(false)
     useEffect(() => {
         const fetchCartData = async () => {
             try {
@@ -184,7 +184,7 @@ const Header = () => {
                     </div>
                 }
 
-                <Sheet>
+                <Sheet open={open} onOpenChange={setOpen} >
                     <SheetTrigger asChild>
                         <Button
                             variant="outline"
@@ -206,6 +206,7 @@ const Header = () => {
                                         <Link
                                             key={link.id}
                                             href={link?.href}
+                                            onClick={() => setOpen(false)}
                                             className={`flex items-center gap-3 rounded-lg px-3 py-1  font-medium transition-all  w-full hover:text-primary-foreground hover:bg-primary
                                                 ${pathName === link?.href ? "text-primary-foreground bg-primary" : "text-gray-800"}
                                                 `}
@@ -221,8 +222,8 @@ const Header = () => {
                         {
                             user && user?.token?.length > 0 ? (
                                 <div className="mt-auto -mx-2 flex gap-2 flex-col">
-                                    <Button onClick={handleLogOut} className="flex gap-2 items-center w-full" variant={"outline"}><LogIn className=" h-5 w-5 rotate-180" /> &nbsp;Logout</Button>
-                                    <Link href={"/profile"} aria-label="Link">
+                                    <Button className="flex gap-2 items-center w-full" onClick={() => { handleLogOut(), setOpen(false) }} variant={"outline"}><LogIn className=" h-5 w-5 rotate-180" /> &nbsp;Logout</Button>
+                                    <Link href={"/profile"} aria-label="Link" onClick={() => setOpen(false)}>
                                         <Button className="w-full border-none flex items-center gap-1.5">
                                             <UserCircle2 className=" h-5 w-5" />   Profile
                                         </Button>
@@ -230,10 +231,10 @@ const Header = () => {
                                 </div>
                             ) : (
                                 <div className="flex flex-col w-full gap-3 mt-auto -mx-2">
-                                    <Button variant={"outline"}>
+                                    <Button onClick={() => setOpen(false)} variant={"outline"}>
                                         <Link href={"/login"} aria-label="Login">Sign In</Link>
                                     </Button>
-                                    <Button >
+                                    <Button onClick={() => setOpen(false)} >
                                         <Link href={"/register"} aria-label="Register">Sign Up</Link>
                                     </Button>
                                 </div>
