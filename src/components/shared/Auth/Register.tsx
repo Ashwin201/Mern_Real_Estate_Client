@@ -25,7 +25,11 @@ import useAuthMiddleware from '@/customMiddleware';
 
 const RegisterSchema = z.object({
     fullName: z.string().min(3, "Name is required (must have atleast 3 character)."),
-    email: z.string().email("Please enter valid email"),
+    email: z.string()
+        .email("Please enter a valid email")
+        .refine((value) => value === value.toLowerCase(), {
+            message: "Email should not contain uppercase letters.",
+        }),
     password: z.string().min(6, "Passowrd must have atleast 6 characters."),
 })
 
@@ -142,7 +146,7 @@ const Register = () => {
                                         <FormItem>
                                             <FormLabel>Email *</FormLabel>
                                             <FormControl>
-                                                <Input placeholder=' Enter Your Email' {...field} />
+                                                <Input type="email" placeholder=' Enter Your Email' {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>

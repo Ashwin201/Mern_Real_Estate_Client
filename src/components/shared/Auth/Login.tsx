@@ -20,7 +20,11 @@ import useUserStore from '@/store/auth';
 import { motion } from "framer-motion"
 import useAuthMiddleware from '@/customMiddleware';
 const LoginSchema = z.object({
-    email: z.string().email("Please enter valid email"),
+    email: z.string()
+        .email("Please enter a valid email")
+        .refine((value) => value === value.toLowerCase(), {
+            message: "Email should not contain uppercase letters.",
+        }),
     password: z.string().min(6, "Passowrd must have atleast 6 characters."),
 })
 
@@ -134,7 +138,7 @@ const Login = () => {
                                                 <FormItem>
                                                     <FormLabel>Email *</FormLabel>
                                                     <FormControl>
-                                                        <Input placeholder=' Enter Your Email' {...field} />
+                                                        <Input type="email" placeholder=' Enter Your Email' {...field} />
                                                     </FormControl>
                                                     <FormMessage />
                                                 </FormItem>
