@@ -224,20 +224,20 @@ const Header = () => {
                         {
                             user && user?.token?.length > 0 ? (
                                 <div className="mt-auto -mx-2 flex gap-2 flex-col">
-                                    <Button className="flex gap-2 items-center w-full" onClick={() => { handleLogOut(), setOpen(false) }} variant={"outline"}><LogIn className=" h-5 w-5 rotate-180" /> &nbsp;Logout</Button>
+                                    <Button size={"lg"} className="flex gap-2 items-center w-full" onClick={() => { handleLogOut(), setOpen(false) }} variant={"outline"}><LogIn className=" h-5 w-5 rotate-180" /> &nbsp;Logout</Button>
                                     <Link href={"/profile"} aria-label="Link" onClick={() => setOpen(false)}>
-                                        <Button className="w-full border-none flex items-center gap-1.5">
+                                        <Button size={"lg"} className="w-full border-none flex items-center gap-1.5">
                                             <UserCircle2 className=" h-5 w-5" />   Profile
                                         </Button>
                                     </Link>
                                 </div>
                             ) : (
                                 <div className="flex flex-col w-full gap-3 mt-auto -mx-2">
-                                    <Button onClick={() => setOpen(false)} variant={"outline"}>
+                                    <Button size={"lg"} onClick={() => setOpen(false)} variant={"outline"}>
                                         <Link href={"/login"} aria-label="Login">Sign In</Link>
                                     </Button>
                                     <Button onClick={() => setOpen(false)} >
-                                        <Link href={"/register"} aria-label="Register">Sign Up</Link>
+                                        <Link size={"lg"} href={"/register"} aria-label="Register">Sign Up</Link>
                                     </Button>
                                 </div>
                             )

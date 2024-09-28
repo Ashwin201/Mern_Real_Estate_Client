@@ -18,13 +18,9 @@ export const addToCart = async (postId) => {
 
 export const updateCartItem = async (itemId, quantity) => {
   try {
-    const response = await axiosInstance.put(
-      `${API_URL}/api/cart/update/${itemId}`,
-      {
-        quantity,
-      },
-      { withCredentials: true }
-    );
+    const response = await axiosInstance.put(`/api/cart/update/${itemId}`, {
+      quantity,
+    });
     return response.data;
   } catch (error) {
     console.log(error);
