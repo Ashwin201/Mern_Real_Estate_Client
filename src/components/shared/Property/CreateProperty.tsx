@@ -25,6 +25,7 @@ import usePostStore from "@/store/post";
 import useUserStore from "@/store/auth";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
+import useAuthMiddleware from "@/customMiddleware";
 
 const PostSchema = z.object({
     title: z.string().min(1, { message: "Title is required" }),
@@ -47,6 +48,8 @@ type PostSchemaType = z.infer<typeof PostSchema>;
 
 
 const CreateProperty = () => {
+    useAuthMiddleware();
+
     const { addPost } = usePostStore()
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [images, setImages] = useState<any[]>([]);

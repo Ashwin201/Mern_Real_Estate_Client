@@ -14,8 +14,11 @@ import CartSkeleton from '../Skeletons/CartSkeleton'
 
 import { loadStripe } from "@stripe/stripe-js"
 import { useToast } from '@/hooks/use-toast'
+import useAuthMiddleware from '@/customMiddleware'
 
 function Cart() {
+    useAuthMiddleware()
+
     const stripePromise = loadStripe(`${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`)
     const { cart, removeCartItem, fetchCart, resetCart } = useCartStore()
     const [loading, setLoading] = useState(true)

@@ -18,6 +18,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
 import useUserStore from '@/store/auth';
 import { motion } from "framer-motion"
+import useAuthMiddleware from '@/customMiddleware';
 const LoginSchema = z.object({
     email: z.string().email("Please enter valid email"),
     password: z.string().min(6, "Passowrd must have atleast 6 characters."),
@@ -25,6 +26,8 @@ const LoginSchema = z.object({
 
 type LoginSchemaValues = z.infer<typeof LoginSchema>
 const Login = () => {
+    useAuthMiddleware()
+
     const { user, setUser } = useUserStore()
     const router = useRouter()
     const { toast } = useToast()

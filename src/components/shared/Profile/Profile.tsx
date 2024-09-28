@@ -6,9 +6,12 @@ import React, { useEffect, useState } from 'react'
 import PostCard from '../Global/PostCard'
 import ProfileSkeleton from '../Skeletons/ProfileSkeleton'
 import { MessageCircleWarning } from 'lucide-react'
+import useAuthMiddleware from '@/customMiddleware'
 
 
 const Profile = () => {
+    useAuthMiddleware()
+
     const { user } = useUserStore()
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState<any[]>([])

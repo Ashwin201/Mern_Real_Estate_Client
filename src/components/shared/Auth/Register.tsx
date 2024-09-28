@@ -20,6 +20,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
 import UploadWidget from '@/lib/UploadWidget';
 import useUserStore from '@/store/auth';
+import useAuthMiddleware from '@/customMiddleware';
 
 
 const RegisterSchema = z.object({
@@ -30,6 +31,8 @@ const RegisterSchema = z.object({
 
 type RegisterSchemaValues = z.infer<typeof RegisterSchema>
 const Register = () => {
+    useAuthMiddleware()
+
     const [avatar, setAvatar] = useState([]);
     const router = useRouter()
     const { user } = useUserStore()

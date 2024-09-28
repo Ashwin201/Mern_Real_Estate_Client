@@ -9,8 +9,10 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import useWishlistStore from '@/store/wishlist'
 import WishlistSkeleton from '../Skeletons/WishlistSkeleton'
+import useAuthMiddleware from '@/customMiddleware'
 
 function Wishlist() {
+    useAuthMiddleware()
     const { wishlist, removeFromWishlist, fetchWishlist } = useWishlistStore()
     const [loading, setLoading] = useState<boolean>(false)
     useEffect(() => {
