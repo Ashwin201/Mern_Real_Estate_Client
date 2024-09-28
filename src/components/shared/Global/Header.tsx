@@ -236,8 +236,8 @@ const Header = () => {
                                     <Button size={"lg"} onClick={() => setOpen(false)} variant={"outline"}>
                                         <Link href={"/login"} aria-label="Login">Sign In</Link>
                                     </Button>
-                                    <Button onClick={() => setOpen(false)} >
-                                        <Link size={"lg"} href={"/register"} aria-label="Register">Sign Up</Link>
+                                    <Button size={"lg"} onClick={() => setOpen(false)} >
+                                        <Link href={"/register"} aria-label="Register">Sign Up</Link>
                                     </Button>
                                 </div>
                             )
