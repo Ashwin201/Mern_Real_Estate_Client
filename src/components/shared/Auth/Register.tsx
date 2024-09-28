@@ -90,7 +90,9 @@ const Register = () => {
         <div className="flex flex-col md:flex-row  h-screen  md:h-screen w-full overflow-hidden  relative">
             {/* Left side */}
             <div className=" w-[100%] h-full md:w-[50%] bg-white  px-2 min-[660px]:px-10  flex flex-col  lg:px-[70px] xl:px-36 justify-center  items-start  md:mt-auto  md:my-auto">
-                <Image src={logoImage} alt="logo" className=" w-32 h-auto ml-3 mb-2 " />
+                <Link className='' href={"/"}>
+                    <Image src={logoImage} alt="logo" className=" w-32 h-auto ml-3 mb-2 " />
+                </Link>
                 <Card className=' border-none shadow-none -mx-2  '>
                     <CardHeader>
                         <CardTitle className=' flex gap-2 items-center text-2xl font-bold mb-1.5'>Welcome to Homio </CardTitle>

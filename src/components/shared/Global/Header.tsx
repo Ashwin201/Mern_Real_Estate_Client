@@ -24,6 +24,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import useCartStore from "@/store/cart"
 import { useEffect, useState } from "react"
 import useWishlistStore from "@/store/wishlist"
+import { deleteCookie } from "cookies-next"
 const navLinks = [
     {
         id: 1,
@@ -80,6 +81,7 @@ const Header = () => {
             const response = await logoutUser()
             if (response?.status === 201) {
                 setUser({})
+                deleteCookie("authToken")
                 toast({
                     title: "Logged out.",
                     description: "You have logged out successfully.",

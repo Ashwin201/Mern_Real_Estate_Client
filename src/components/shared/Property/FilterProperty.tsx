@@ -147,7 +147,7 @@ const FilterForm = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
                         </FormItem>
                     )}
                 />
-                <div className=" flex gap-2  items-baseline pt-10  ">
+                <div className=" flex gap-2  items-baseline pt-8  ">
                     <Button className="  flex gap-2 items-center font-medium tracking-normal" onClick={() => setReset(true)}>
                         <ListRestart className=" h-4 w-4" />  Reset
                     </Button>

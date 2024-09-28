@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import useUserStore from "./store/auth";
 
@@ -16,19 +16,25 @@ const useAuthMiddleware = () => {
   const { user } = useUserStore();
   const token = user?.token;
   const pathname = usePathname();
-  useEffect(() => {
-    if (protectedRoutes.some((route: any) => pathname?.startsWith(route))) {
-      if (!token) {
-        router.push("/login");
-      }
-    }
+  const isInitialMount = useRef(true);
 
-    if (pathname === "/login" || pathname === "/register") {
-      if (token) {
-        router.push("/");
-      }
-    }
-  }, [router, token]);
+  //   useEffect(() => {
+  //     if (isInitialMount.current) {
+  //       isInitialMount.current = false;
+  //       return;
+  //     }
+
+  //     const isProtectedRoute = protectedRoutes.some((route) =>
+  //       pathname?.startsWith(route)
+  //     );
+
+  //     if (isProtectedRoute && !token) {
+  //       router.push("/login");
+  //     } else if ((pathname === "/login" || pathname === "/register") && token) {
+  //       router.push("/");
+  //     }
+  //   }, [pathname, token]);
+
   return "";
 };
 

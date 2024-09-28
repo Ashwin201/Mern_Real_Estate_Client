@@ -147,7 +147,7 @@ const PropertyDetail = ({ id }: any) => {
                         </div>
                         <h1 className="text-xl font-bold">{post?.title}</h1>
                         <p className="text-gray-600" dangerouslySetInnerHTML={{ __html: post?.desc }} ></p>
-                        <p className="text-xl text-gray-700 font-semibold mt-2"> Amount : {post?.price ? post?.price?.toLocaleString('en-IN') + '$' : 'N/A'}$</p>
+                        <p className="text-xl text-gray-700 font-semibold mt-2"> Amount : {post?.price ? post?.price?.toLocaleString('en-IN') + '$' : 'N/A'}</p>
 
                         <div className="space-y-4">
                             <h3 className="font-semibold text-lg">More Information:</h3>

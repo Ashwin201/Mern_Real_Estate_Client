@@ -19,6 +19,7 @@ import { useRouter } from 'next/navigation';
 import useUserStore from '@/store/auth';
 import { motion } from "framer-motion"
 import useAuthMiddleware from '@/customMiddleware';
+import { setCookie } from "cookies-next"
 const LoginSchema = z.object({
     email: z.string()
         .email("Please enter a valid email")
@@ -73,7 +74,7 @@ const Login = () => {
                     token: response?.data?.token
                 }
                 setUser(values)
-
+                setCookie("authToken", response?.data?.token, { maxAge: 60 * 60 * 24 });
                 router.push("/")
 
                 toast({
@@ -118,7 +119,9 @@ const Login = () => {
 
                     {/* Right side */}
                     <div className=" w-[100%] h-full md:w-[50%] bg-white  px-2 min-[660px]:px-12  flex flex-col  lg:px-[70px] xl:px-36 justify-center  items-start  md:mt-auto  md:my-auto">
-                        <Image src={logoImage} alt="logo" className=" w-32 h-auto  ml-3 mb-2" />
+                        <Link className='' href={"/"}>
+                            <Image src={logoImage} alt="logo" className=" w-32 h-auto  ml-3 mb-2" />
+                        </Link>
                         <Card className=' border-none shadow-none -mx-2 '>
                             <CardHeader>
                                 <CardTitle className=' flex gap-2 items-center text-2xl font-bold mb-3 mt-1 '>Welcome Back to Homio</CardTitle>

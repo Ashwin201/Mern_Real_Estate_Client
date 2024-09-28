@@ -30,7 +30,7 @@ const PostCard = (data: any) => {
                 <CardDescription className=' line-clamp-1 font-medium'>{data?.address + ", " + data?.city}</CardDescription>
             </CardHeader>
             <CardContent className='  p-0 space-y-2'>
-                <p className="text-base font-semibold text-gray-600">Amount :&nbsp; {data?.price?.toFixed(2)} $</p>
+                <p className="text-base font-semibold text-gray-600">Amount :&nbsp; {data?.price ? data?.price?.toLocaleString('en-IN') + '$' : 'N/A'} </p>
                 <div className="flex justify-between text-sm text-gray-500">
                     <span className="flex items-center font-medium">
                         <Bed className="w-4 h-4 mr-1" /> {data?.bedroom} Bedrooms
