@@ -14,7 +14,7 @@ export function middleware(req: NextRequest) {
   const cookieStore = cookies();
   // console.log(cookieStore, "cookieStore");
   const token = cookieStore.get("authToken")?.value;
-  // console.log(token, "authtoken");
+  console.log(token, "authtoken");
   if (protectedRoutes.some((route) => req.nextUrl.pathname.startsWith(route))) {
     if (!token) {
       const redirectUrl = new URL("/login", req.url);

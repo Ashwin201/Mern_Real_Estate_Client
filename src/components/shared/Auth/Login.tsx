@@ -90,7 +90,7 @@ const Login = () => {
             console.log(error)
         }
     }
-    return !user?.email && (
+    return (
         <>
 
             {loading ?
