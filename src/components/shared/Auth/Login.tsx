@@ -111,7 +111,7 @@ const Login = () => {
                     <Image src={logoImage} alt="logo" className=" w-32 h-auto  ml-3 mb-2" />
                 </motion.div>
                 :
-                <div className="flex flex-col md:flex-row   h-full w-full overflow-hidden relative my-auto">
+                <div className="flex flex-col md:flex-row  h-full w-full overflow-hidden relative my-auto">
                     {/* Left side */}
                     <div className=" hidden md:flex w-[50%]  h-[100vh] justify-center items-center  bg-gradient-to-r from-purple-950 to-purple-800 shadow-xl  md:rounded-r-3xl shadow-gray-500   ">
                         <Image src={loginImage} alt="logo" className=" px-5 w-full sm:w-[380px] h-auto  mx-auto" />

@@ -15,7 +15,6 @@ import CartSkeleton from '../Skeletons/CartSkeleton'
 import { loadStripe } from "@stripe/stripe-js"
 import { useToast } from '@/hooks/use-toast'
 import useAuthMiddleware from '@/customMiddleware'
-import axios from 'axios'
 
 function Cart() {
     useAuthMiddleware()
@@ -52,7 +51,7 @@ function Cart() {
                 price: number;
             };
         }
-        return cart?.items?.reduce((total: number, item: CartItem) => total + item?.post?.price, 0).toFixed(2) || '0.00'
+        return cart?.items?.reduce((total: number, item: CartItem) => total + item?.post?.price, 0).toLocaleString('en-IN') + '$' || '0.00'
     }
     const resetCartItems = async () => {
         try {
@@ -69,29 +68,26 @@ function Cart() {
             const body = {
                 cart: cart.items
             }
-            const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/checkout`, body, {
-                withCredentials: true
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/checkout`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(body),
+                credentials: "include"
             });
-            // console.log(res);
+            // console.log(res)
+            if (!res.ok) {
 
-            if (!res) {
-                toast({
-                    variant: "destructive",
-                    title: "Checkout Failed"
-                })
                 setPaymentFailed(true)
                 setCheckoutLoading(false)
                 return;
             }
-            const data = await res.data;
+            const data = await res.json();
             if (stripe) {
                 const result = await stripe.redirectToCheckout({ sessionId: data.id });
                 // console.log(result);
                 if (result.error) {
-                    toast({
-                        variant: "destructive",
-                        title: "Checkout Failed"
-                    })
                     setPaymentFailed(true)
                     setCheckoutLoading(false)
                 } else {
@@ -124,7 +120,7 @@ function Cart() {
                                 <Card key={item?.post?._id} className="mb-4">
                                     <CardContent className="relative">
                                         <div className="flex items-start flex-col gap-5 sm:gap-4 sm:flex-row">
-                                            <Link href={`/property/${item?.post?._id}`} aria-label='Link' className="rounded-md w-40 sm:w-36 h-36">
+                                            <Link href={`/property/${item?.post?._id}`} aria-label='Link' className="rounded-md w-[100%] sm:w-36 h-36">
                                                 <Image src={item?.post?.images?.[0]} alt={"Image"} width={120} height={120} className="rounded-md w-full h-full object-cover" />
                                             </Link>
                                             <div className="sm:ml-4 flex-grow space-y-1.5 1">
@@ -133,7 +129,7 @@ function Cart() {
                                                 </Link>
                                                 <h3 className="flex items-center text-base font-medium text-gray-500"><MapPinned className="w-4 h-4 mr-1" />{item?.post?.address}</h3>
 
-                                                <div className="flex justify-start text-sm text-gray-500 gap-4 sm:gap-6">
+                                                <div className="flex justify-start text-sm text-gray-500 gap-4 sm:gap-6 py-2">
                                                     <span className="flex items-center font-medium">
                                                         <Bed className="w-5 h-5 mr-2" /> {item?.post?.bedroom} Bedrooms
                                                     </span>
@@ -144,12 +140,12 @@ function Cart() {
                                                         <AreaChart className="w-5 h-5 mr-2" /> {item?.post?.size} meters size
                                                     </span>
                                                 </div>
-                                                <p className="text-[15px] text-gray-700 flex font-semibold items-center ">Amount :&nbsp;${item?.post.price?.toFixed(2)}</p>
+                                                <p className="text-[15px] text-gray-700 flex font-semibold items-center  ">Amount :&nbsp;{item?.post?.price ? item?.post?.price?.toLocaleString('en-IN') + '$' : 'N/A'}</p>
                                             </div>
                                             <Button
                                                 variant="ghost"
                                                 size="icon"
-                                                className="ml-4 absolute top-0 right-0"
+                                                className="ml-4 absolute bottom-0 sm:top-0 right-0"
                                                 onClick={() => handleRemoveItem(item?._id)}
                                             >
                                                 <Trash2 className="h-5 w-5 text-gray-600" />
@@ -168,7 +164,7 @@ function Cart() {
                                     <Separator className="my-4" />
                                     <div className="flex justify-between font-semibold">
                                         <span>Total</span>
-                                        <span>${calculateTotal()}</span>
+                                        <span>{calculateTotal()}</span>
                                     </div>
                                 </CardContent>
                                 <CardFooter className=' grid grid-cols-1 gap-2 mt-2'>
@@ -197,7 +193,7 @@ function Cart() {
                         </div>
                     </div>
                 ) : (
-                    <div className='flex flex-col gap-3 items-center justify-center mt-36 mb-28'>
+                    <div className='flex flex-col gap-3 items-center justify-center mt-36 mb-24 sm:mt-20 sm:mb-20'>
                         <MessageCircleWarning className='h-16 w-16 text-gray-600' />
                         <p className='text-lg font-semibold text-gray-600'>Your Cart is empty.</p>
                     </div>

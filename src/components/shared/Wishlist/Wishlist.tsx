@@ -48,8 +48,8 @@ function Wishlist() {
                                 <CardContent className="  relative">
                                     <div className="flex items-start flex-col gap-5 sm:gap-4 sm:flex-row">
 
-                                        <Link href={`/property/${item?.post?._id}`} aria-label='Link'>
-                                            <Image src={item?.post?.images?.[0]} alt={"Image"} width={80} height={80} className="rounded-md w-40 h-36 sm:w-36 " />
+                                        <Link href={`/property/${item?.post?._id}`} aria-label='Link' className=' rounded-md w-[100%] sm:w-36 h-36'>
+                                            <Image src={item?.post?.images?.[0]} alt={"Image"} width={80} height={80} className="rounded-md w-full sm:w-40 h-36  " />
                                         </Link>
                                         <div className="sm:ml-4 flex-grow space-y-1.5 1">
                                             <Link href={`/property/${item?.post?._id}`} aria-label='Link'>
@@ -57,7 +57,7 @@ function Wishlist() {
                                             </Link>
                                             <h3 className=" flex items-center text-base font-medium text-gray-500"><MapPinned className="w-4 h-4 mr-1" />{item?.post?.address}</h3>
 
-                                            <div className="flex justify-start text-sm text-gray-500  gap-4 sm:gap-6">
+                                            <div className="flex justify-start text-sm text-gray-500  gap-4 sm:gap-6 py-2">
                                                 <span className="flex items-center font-medium">
                                                     <Bed className="w-5 h-5 mr-2" /> {item?.post?.bedroom} Bedrooms
                                                 </span>
@@ -68,13 +68,13 @@ function Wishlist() {
                                                     <AreaChart className="w-5 h-5 mr-2" /> {item?.post?.size} meters size
                                                 </span>
                                             </div>
-                                            <p className="text-[15px] text-gray-700 flex font-semibold items-center ">Amount :&nbsp;${item?.post.price?.toFixed(2)}</p>
+                                            <p className="text-[15px] text-gray-700 flex font-semibold items-center ">Amount :&nbsp;{item?.post?.price ? item?.post?.price?.toLocaleString('en-IN') + '$' : 'N/A'}</p>
                                         </div>
 
                                         <Button
                                             variant="ghost"
                                             size="icon"
-                                            className={` rounded-full ml-4 absolute p-1 top-0 right-0 "}`}
+                                            className={` rounded-full ml-4 absolute  bottom-0 sm:top-0 right-0 "}`}
                                             onClick={() => handleRemoveItem(item?._id)}
                                         >
                                             <Trash2 className="h-5 w-5 text-gray-600" />
@@ -83,7 +83,7 @@ function Wishlist() {
                                 </CardContent>
                             </Card>
                         ))}
-                    </div> : <div className=' flex flex-col gap-3 items-center justify-center mt-36 mb-28'>
+                    </div> : <div className=' flex flex-col gap-3 items-center justify-center mt-36 mb-24 sm:mt-20 sm:mb-20'>
                         <MessageCircleWarning className=' h-16 w-16 text-gray-500' />
                         <p className=' text-lg font-semibold text-gray-500'>Your wishlist is Empty.</p>
                     </div>
