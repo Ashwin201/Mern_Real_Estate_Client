@@ -1,3 +1,4 @@
+import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 const protectedRoutes = [
@@ -9,27 +10,15 @@ const protectedRoutes = [
 ];
 
 export function middleware(req: NextRequest) {
-  const cookieHeader = req.headers.get("cookie");
-  let authToken = null;
-
-  if (cookieHeader) {
-    const cookies = cookieHeader.split(";").map((cookie) => cookie.trim());
-    for (const cookie of cookies) {
-      const [name, value] = cookie.split("=");
-      if (name === "authToken") {
-        authToken = value;
-        break;
-      }
-    }
-  }
-  // console.log(authHeader, bearerToken);
-  // console.log("========================================================");
-  // console.log(authToken);
-  // console.log("========================================================");
+  // const token = req.cookies.get("authToken");
+  const cookieStore = cookies();
+  // console.log(cookieStore, "cookieStore");
+  const token = cookieStore.get("authToken")?.value;
+  // console.log(token, "authtoken");
   if (protectedRoutes.some((route) => req.nextUrl.pathname.startsWith(route))) {
-    if (!authToken) {
+    if (!token) {
       const redirectUrl = new URL("/login", req.url);
-      return NextResponse.redirect(redirectUrl);
+      return NextResponse.redirect(redirectUrl); // Updated line
     }
   }
 
@@ -37,15 +26,14 @@ export function middleware(req: NextRequest) {
     req.nextUrl.pathname === "/login" ||
     req.nextUrl.pathname === "/register"
   ) {
-    if (authToken) {
+    if (token) {
       const redirectUrl = new URL("/", req.url);
-      return NextResponse.redirect(redirectUrl);
+      return NextResponse.redirect(redirectUrl); // Updated line
     }
   }
 
   return NextResponse.next();
 }
-
 export const config = {
   matcher: [
     "/profile",
@@ -55,5 +43,5 @@ export const config = {
     "/wishlist",
     "/login",
     "/register",
-  ],
+  ], // Paths to run middleware on
 };

@@ -210,6 +210,7 @@ function Cart() {
                 <DialogContent>
                     <DialogHeader>
                         <DialogTitle className="text-center">Payment Successful</DialogTitle>
+                        <DialogDescription className=' sr-only'>Payment success</DialogDescription>
                     </DialogHeader>
                     <div className="flex flex-col items-center justify-center gap-4 py-8">
                         <CheckCircle className="h-16 w-16 text-green-500" />
@@ -228,6 +229,8 @@ function Cart() {
                 <DialogContent>
                     <DialogHeader>
                         <DialogTitle className="text-center text-red-600">Payment Failed</DialogTitle>
+                        <DialogDescription className=' sr-only'>Payment failed</DialogDescription>
+
                     </DialogHeader>
                     <div className="flex flex-col items-center justify-center gap-4 py-6">
                         <AlertCircle className="h-16 w-16 text-red-500" />
