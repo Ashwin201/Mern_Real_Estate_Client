@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -19,6 +19,7 @@ import { LucideEye, LucideEyeOff } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
 import UploadWidget from '@/lib/UploadWidget';
+import useUserStore from '@/store/auth';
 
 
 const RegisterSchema = z.object({
@@ -31,9 +32,14 @@ type RegisterSchemaValues = z.infer<typeof RegisterSchema>
 const Register = () => {
     const [avatar, setAvatar] = useState([]);
     const router = useRouter()
+    const { user } = useUserStore()
     const { toast } = useToast()
     const [showPassword, setShowPassword] = useState<boolean>(false);
-
+    useEffect(() => {
+        if (user?.token?.length > 0) {
+            router.push("/")
+        }
+    }, [])
     const form = useForm<RegisterSchemaValues>({
         resolver: zodResolver(RegisterSchema),
         defaultValues: {
@@ -73,7 +79,7 @@ const Register = () => {
             console.log(error)
         }
     }
-    return (
+    return !user?.token && (
         <div className="flex flex-col md:flex-row  h-screen  md:h-screen w-full overflow-hidden  relative">
             {/* Left side */}
             <div className=" w-[100%] h-full md:w-[50%] bg-white  px-2 min-[660px]:px-10  flex flex-col  lg:px-[70px] xl:px-36 justify-center  items-start  md:mt-auto  md:my-auto">

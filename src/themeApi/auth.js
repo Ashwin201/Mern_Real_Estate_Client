@@ -1,11 +1,11 @@
-import axios from "axios";
-const API_URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user`;
+import axiosInstance from "./axiosConfig";
 // const API_URL = window.location.origin;
 export const registerUser = async (registerData) => {
   try {
-    const response = await axios.post(`${API_URL}/register`, registerData, {
-      withCredentials: true,
-    });
+    const response = await axiosInstance.post(
+      `/api/user/register`,
+      registerData
+    );
     return response;
   } catch (error) {
     console.log("Register Error", error);
@@ -14,9 +14,7 @@ export const registerUser = async (registerData) => {
 };
 export const loginUser = async (loginData) => {
   try {
-    const response = await axios.post(`${API_URL}/login`, loginData, {
-      withCredentials: true,
-    });
+    const response = await axiosInstance.post(`/api/user/login`, loginData);
     return response;
   } catch (error) {
     console.log("Login Error", error);
@@ -25,9 +23,10 @@ export const loginUser = async (loginData) => {
 };
 export const updateUser = async (updatedData) => {
   try {
-    const response = await axios.put(`${API_URL}/profile/update`, updatedData, {
-      withCredentials: true,
-    });
+    const response = await axiosInstance.put(
+      `/api/user/profile/update`,
+      updatedData
+    );
     return response;
   } catch (error) {
     console.log("Update profile Error", error);
@@ -35,9 +34,7 @@ export const updateUser = async (updatedData) => {
 };
 export const logoutUser = async () => {
   try {
-    const response = await axios.get(`${API_URL}/log-out`, {
-      withCredentials: true,
-    });
+    const response = await axiosInstance.get(`/api/user/log-out`);
     return response;
   } catch (error) {
     console.log("LogOut Error", error);
@@ -45,9 +42,8 @@ export const logoutUser = async () => {
 };
 export const userPosts = async () => {
   try {
-    const response = await axios.get(`${API_URL}/user-post`, {
-      withCredentials: true,
-    });
+    const response = await axiosInstance.get(`/api/user/user-post`);
+    console.log(response);
     return response;
   } catch (error) {
     console.log("User Post Error", error);

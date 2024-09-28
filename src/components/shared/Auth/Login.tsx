@@ -32,6 +32,9 @@ const Login = () => {
     // console.log(user)
     const [loading, setLoading] = useState<boolean>(true)
     useEffect(() => {
+        if (user?.token?.length > 0) {
+            router.push("/")
+        }
         const timer = setTimeout(() => {
             setLoading(false)
         }, 2000)
@@ -39,7 +42,6 @@ const Login = () => {
         return () => clearTimeout(timer)
     }, [])
 
-    useEffect(() => { }, [user.token?.length])
     const form = useForm<LoginSchemaValues>({
         resolver: zodResolver(LoginSchema),
         defaultValues: {
@@ -88,7 +90,7 @@ const Login = () => {
             console.log(error)
         }
     }
-    return (
+    return !user?.email && (
         <>
 
             {loading ?
