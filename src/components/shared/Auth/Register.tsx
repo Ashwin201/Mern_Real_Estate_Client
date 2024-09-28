@@ -87,7 +87,7 @@ const Register = () => {
         }
     }
     return !user?.token && (
-        <div className="flex flex-col md:flex-row  h-screen  md:h-screen w-full overflow-hidden  relative">
+        <div className="flex flex-col md:flex-row  h-full w-full  my-auto overflow-hidden  relative">
             {/* Left side */}
             <div className=" w-[100%] h-full md:w-[50%] bg-white  px-2 min-[660px]:px-10  flex flex-col  lg:px-[70px] xl:px-36 justify-center  items-start  md:mt-auto  md:my-auto">
                 <Link className='' href={"/"}>

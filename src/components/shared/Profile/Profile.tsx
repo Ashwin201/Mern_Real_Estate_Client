@@ -76,7 +76,7 @@ const Profile = () => {
                                     }
                                 </div>
 
-                                : <div className=' flex flex-col gap-3 items-center justify-center my-28'>
+                                : <div className=' flex flex-col gap-3 items-center justify-center mt-36 mb-28'>
                                     <MessageCircleWarning className=' h-16 w-16 text-gray-500' />
                                     <p className=' text-lg font-semibold text-gray-500'>You had not posted any property yet.</p>
                                 </div>}

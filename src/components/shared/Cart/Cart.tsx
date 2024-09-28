@@ -15,6 +15,7 @@ import CartSkeleton from '../Skeletons/CartSkeleton'
 import { loadStripe } from "@stripe/stripe-js"
 import { useToast } from '@/hooks/use-toast'
 import useAuthMiddleware from '@/customMiddleware'
+import axios from 'axios'
 
 function Cart() {
     useAuthMiddleware()
@@ -68,17 +69,12 @@ function Cart() {
             const body = {
                 cart: cart.items
             }
-            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/checkout`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(body),
-                credentials: "include"
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/checkout`, body, {
+                withCredentials: true
             });
             // console.log(res);
 
-            if (!res.ok) {
+            if (!res) {
                 toast({
                     variant: "destructive",
                     title: "Checkout Failed"
@@ -87,7 +83,7 @@ function Cart() {
                 setCheckoutLoading(false)
                 return;
             }
-            const data = await res.json();
+            const data = await res.data;
             if (stripe) {
                 const result = await stripe.redirectToCheckout({ sessionId: data.id });
                 // console.log(result);
@@ -201,7 +197,7 @@ function Cart() {
                         </div>
                     </div>
                 ) : (
-                    <div className='flex flex-col gap-3 items-center justify-center my-16'>
+                    <div className='flex flex-col gap-3 items-center justify-center mt-36 mb-28'>
                         <MessageCircleWarning className='h-16 w-16 text-gray-600' />
                         <p className='text-lg font-semibold text-gray-600'>Your Cart is empty.</p>
                     </div>

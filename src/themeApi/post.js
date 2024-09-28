@@ -1,8 +1,13 @@
 // api/post.js
-import axiosInstance from "./axiosConfig";
+import axios from "axios";
+const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 export const getPosts = async (query) => {
   try {
-    const response = await axiosInstance.get(`/api/post`, { params: query });
+    const response = await axios.get(
+      `${API_URL}/api/post`,
+      { params: query },
+      { withCredentials: true }
+    );
     return response;
   } catch (error) {
     console.log(error);
@@ -12,7 +17,9 @@ export const getPosts = async (query) => {
 
 export const getPostById = async (id) => {
   try {
-    const response = await axiosInstance.get(`/api/post/${id}`);
+    const response = await axios.get(`${API_URL}/api/post/${id}`, {
+      withCredentials: true,
+    });
     return response;
   } catch (error) {
     console.log(error);
@@ -22,7 +29,9 @@ export const getPostById = async (id) => {
 
 export const createPost = async (post) => {
   try {
-    const response = await axiosInstance.post(`/api/post`, post);
+    const response = await axios.post(`${API_URL}/api/post`, post, {
+      withCredentials: true,
+    });
     return response;
   } catch (error) {
     console.log(error);
@@ -32,7 +41,9 @@ export const createPost = async (post) => {
 
 export const updatePost = async (id, post) => {
   try {
-    const response = await axiosInstance.put(`/api/post/${id}`, post);
+    const response = await axios.put(`${API_URL}/api/post/${id}`, post, {
+      withCredentials: true,
+    });
     return response.data;
   } catch (error) {
     console.log(error);
@@ -42,7 +53,9 @@ export const updatePost = async (id, post) => {
 
 export const deletePost = async (id) => {
   try {
-    const response = await axiosInstance.delete(`/api/post/${id}`);
+    const response = await axios.delete(`${API_URL}/api/post/${id}`, {
+      withCredentials: true,
+    });
     return response.data;
   } catch (error) {
     console.log(error);

@@ -1,12 +1,13 @@
 import axios from "axios";
 import axiosInstance from "./axiosConfig";
-const API_URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}`;
+const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export const registerUser = async (registerData) => {
   try {
     const response = await axios.post(
       `${API_URL}/api/user/register`,
-      registerData
+      registerData,
+      { withCredentials: true }
     );
     return response;
   } catch (error) {
@@ -16,7 +17,9 @@ export const registerUser = async (registerData) => {
 };
 export const loginUser = async (loginData) => {
   try {
-    const response = await axios.post(`${API_URL}/api/user/login`, loginData);
+    const response = await axios.post(`${API_URL}/api/user/login`, loginData, {
+      withCredentials: true,
+    });
     return response;
   } catch (error) {
     console.log("Login Error", error);
@@ -36,7 +39,9 @@ export const updateUser = async (updatedData) => {
 };
 export const logoutUser = async () => {
   try {
-    const response = await axios.get(`${API_URL}/api/user/log-out`);
+    const response = await axios.get(`${API_URL}/api/user/log-out`, {
+      withCredentials: true,
+    });
     return response;
   } catch (error) {
     console.log("LogOut Error", error);
@@ -44,7 +49,7 @@ export const logoutUser = async () => {
 };
 export const userPosts = async () => {
   try {
-    const response = await axiosInstance.get(`/api/user/user-post`, {
+    const response = await axios.get(`${API_URL}/api/user/user-post`, {
       withCredentials: true,
     });
     // console.log(response);
