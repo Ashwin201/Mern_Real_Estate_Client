@@ -22,7 +22,6 @@ function Cart() {
     const [loading, setLoading] = useState(true)
     const { toast } = useToast()
     const [checkoutLoading, setCheckoutLoading] = useState<boolean>(false)
-    const [paymentSuccess, setPaymentSuccess] = useState(false)
     const [paymentFailed, setPaymentFailed] = useState(false)
     const [postRemoved, setPostRemoved] = useState<boolean>(true)
     useEffect(() => {
@@ -89,12 +88,11 @@ function Cart() {
             }
             if (stripe) {
                 const result = await stripe.redirectToCheckout({ sessionId: res.id });
+                console.log(result)
                 if (result.error) {
                     setPaymentFailed(true)
                     setCheckoutLoading(false)
-                } else {
-                    setPaymentSuccess(true)
-                    resetCartItems()
+                    return
                 }
             }
             setCheckoutLoading(false)
@@ -203,27 +201,11 @@ function Cart() {
             }
 
             {/* Payment Success Dialog */}
-            <Dialog open={paymentSuccess} onOpenChange={setPaymentSuccess}>
-                <DialogContent>
-                    <DialogHeader>
-                        <DialogTitle className="text-center">Payment Successful</DialogTitle>
-                        <DialogDescription className=' sr-only'>Payment success</DialogDescription>
-                    </DialogHeader>
-                    <div className="flex flex-col items-center justify-center gap-4 py-8">
-                        <CheckCircle className="h-16 w-16 text-green-500" />
-                        <p className="text-base font-medium text-gray-500 text-center">
-                            Your payment has been processed successfully. Thank you for your purchase!
-                        </p>
-                    </div>
-                    <DialogFooter>
-                        <Button onClick={() => setPaymentSuccess(false)}>Close</Button>
-                    </DialogFooter>
-                </DialogContent>
-            </Dialog>
+
 
             {/* Payment Failed Dialog */}
             <Dialog open={paymentFailed} onOpenChange={setPaymentFailed}>
-                <DialogContent>
+                <DialogContent className=' max-w-[95%] sm:max-w-[425px]'>
                     <DialogHeader>
                         <DialogTitle className="text-center text-red-600">Payment Failed</DialogTitle>
                         <DialogDescription className=' sr-only'>Payment failed</DialogDescription>
