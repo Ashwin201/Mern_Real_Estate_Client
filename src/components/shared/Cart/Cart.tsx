@@ -14,11 +14,10 @@ import CartSkeleton from '../Skeletons/CartSkeleton'
 
 import { loadStripe } from "@stripe/stripe-js"
 import { useToast } from '@/hooks/use-toast'
+import { Checkout } from "@/themeApi/cart"
 
-
+const stripePromise = loadStripe(`${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`)
 function Cart() {
-
-    const stripePromise = loadStripe(`${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`)
     const { cart, removeCartItem, fetchCart, resetCart } = useCartStore()
     const [loading, setLoading] = useState(true)
     const { toast } = useToast()
@@ -82,25 +81,14 @@ function Cart() {
             const body = {
                 cart: cart
             }
-            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/checkout`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(body),
-                credentials: "include"
-            });
-            // console.log(res)
-            if (!res.ok) {
-
+            const res = await Checkout(body)
+            if (!res.id) {
                 setPaymentFailed(true)
                 setCheckoutLoading(false)
                 return;
             }
-            const data = await res.json();
             if (stripe) {
-                const result = await stripe.redirectToCheckout({ sessionId: data.id });
-                // console.log(result);
+                const result = await stripe.redirectToCheckout({ sessionId: res.id });
                 if (result.error) {
                     setPaymentFailed(true)
                     setCheckoutLoading(false)

@@ -44,3 +44,12 @@ export const removerCartItems = async () => {
     console.log(error);
   }
 };
+export const Checkout = async (data) => {
+  try {
+    const response = await axiosInstance.post(`/api/cart/checkout`, data);
+    // console.log(response);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
