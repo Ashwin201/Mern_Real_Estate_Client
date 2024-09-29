@@ -22,7 +22,7 @@ const PostCard = (data: any) => {
             <CardHeader>
                 <div className=' flex items-start gap-2 justify-between mt-2'>
                     <CardTitle className=' text-lg font-semibold text-gray-800  line-clamp-1'>{data?.title}</CardTitle>
-                    {data?.user?._id === user?._id && <Link href={`/property/edit/${data?._id}`} aria-label='Link' className=' -mt-1'>
+                    {user?.email && data?.user?._id === user?._id && <Link href={`/property/edit/${data?._id}`} aria-label='Link' className=' -mt-1'>
                         <Button variant={"ghost"} size={"icon"}><Edit className=' h-5 w-5 text-gray-600 font-semibold' /></Button>
                     </Link>}
 
