@@ -114,47 +114,45 @@ function Cart() {
                 loading ? (
                     <CartSkeleton />
                 ) : cart?.length > 0 ? (
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div className="md:col-span-2">
-                            {cart?.map((item: any) => (
-                                <Card key={item?.post?._id} className="mb-4">
-                                    <CardContent className="relative">
-                                        <div className="flex items-start flex-col gap-5 sm:gap-4 sm:flex-row">
-                                            <Link href={`/property/${item?.post?._id}`} aria-label='Link' className="rounded-md w-[100%] sm:w-36 h-36">
-                                                <Image src={item?.post?.images?.[0]} alt={"Image"} width={120} height={120} className="rounded-md w-full h-full object-cover" />
+                    <div className="grid grid-cols-1  gap-8">
+                        {cart?.map((item: any) => (
+                            <Card key={item?.post?._id} className="">
+                                <CardContent className="relative">
+                                    <div className="flex items-start flex-col gap-5 sm:gap-4 sm:flex-row">
+                                        <Link href={`/property/${item?.post?._id}`} aria-label='Link' className="rounded-md w-[100%] sm:w-36 h-36">
+                                            <Image src={item?.post?.images?.[0]} alt={"Image"} width={120} height={120} className="rounded-md w-full h-full object-cover" />
+                                        </Link>
+                                        <div className="sm:ml-4 flex-grow space-y-1.5 1">
+                                            <Link href={`/property/${item?.post?._id}`} aria-label='Link'>
+                                                <h3 className="text-lg font-semibold sm:mr-8 line-clamp-2 sm:line-clamp-1">{item?.post?.title}</h3>
                                             </Link>
-                                            <div className="sm:ml-4 flex-grow space-y-1.5 1">
-                                                <Link href={`/property/${item?.post?._id}`} aria-label='Link'>
-                                                    <h3 className="text-lg font-semibold sm:mr-8 line-clamp-2 sm:line-clamp-1">{item?.post?.title}</h3>
-                                                </Link>
-                                                <h3 className="flex items-center text-base font-medium text-gray-500"><MapPinned className="w-4 h-4 mr-1" />{item?.post?.address}</h3>
+                                            <h3 className="flex items-center text-base font-medium text-gray-500"><MapPinned className="w-4 h-4 mr-1" />{item?.post?.address}</h3>
 
-                                                <div className="flex justify-start text-sm text-gray-500 gap-4 sm:gap-6 py-2">
-                                                    <span className="flex items-center font-medium">
-                                                        <Bed className="w-5 h-5 mr-2" /> {item?.post?.bedroom} Bedrooms
-                                                    </span>
-                                                    <span className="flex items-center font-medium">
-                                                        <Bath className="w-5 h-5 mr-2" /> {item?.post?.bathroom} Bathrooms
-                                                    </span>
-                                                    <span className="hidden sm:flex items-center font-medium">
-                                                        <AreaChart className="w-5 h-5 mr-2" /> {item?.post?.size} meters size
-                                                    </span>
-                                                </div>
-                                                <p className="text-[15px] text-gray-700 flex font-semibold items-center  ">Amount :&nbsp;{item?.post?.price ? item?.post?.price?.toLocaleString('en-IN') + '$' : 'N/A'}</p>
+                                            <div className="flex justify-start text-sm text-gray-500 gap-4 sm:gap-6 py-2">
+                                                <span className="flex items-center font-medium">
+                                                    <Bed className="w-5 h-5 mr-2" /> {item?.post?.bedroom} Bedrooms
+                                                </span>
+                                                <span className="flex items-center font-medium">
+                                                    <Bath className="w-5 h-5 mr-2" /> {item?.post?.bathroom} Bathrooms
+                                                </span>
+                                                <span className="hidden sm:flex items-center font-medium">
+                                                    <AreaChart className="w-5 h-5 mr-2" /> {item?.post?.size} meters size
+                                                </span>
                                             </div>
-                                            <Button
-                                                variant="ghost"
-                                                size="icon"
-                                                className="ml-4 absolute bottom-0 sm:top-0 right-0"
-                                                onClick={() => handleRemoveItem(item?._id)}
-                                            >
-                                                <Trash2 className="h-5 w-5 text-gray-600" />
-                                            </Button>
+                                            <p className="text-[15px] text-gray-700 flex font-semibold items-center  ">Amount :&nbsp;{item?.post?.price ? item?.post?.price?.toLocaleString('en-IN') + '$' : 'N/A'}</p>
                                         </div>
-                                    </CardContent>
-                                </Card>
-                            ))}
-                        </div>
+                                        <Button
+                                            variant="ghost"
+                                            size="icon"
+                                            className="ml-4 absolute bottom-0 sm:top-0 right-0"
+                                            onClick={() => handleRemoveItem(item?._id)}
+                                        >
+                                            <Trash2 className="h-5 w-5 text-gray-600" />
+                                        </Button>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        ))}
                         <div>
                             <Card className='space-y-3'>
                                 <CardHeader>

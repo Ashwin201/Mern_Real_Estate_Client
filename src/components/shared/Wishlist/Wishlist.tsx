@@ -12,7 +12,7 @@ import WishlistSkeleton from '../Skeletons/WishlistSkeleton'
 import { useToast } from '@/hooks/use-toast'
 function Wishlist() {
     const { wishlist, removeFromWishlist, fetchWishlist } = useWishlistStore()
-    const [loading, setLoading] = useState<boolean>(false)
+    const [loading, setLoading] = useState<boolean>(true)
     const [wishlistRemove, setwishlistRemove] = useState<boolean>(true)
     const { toast } = useToast()
     useEffect(() => {
@@ -57,9 +57,9 @@ function Wishlist() {
                     <WishlistSkeleton />
                     <WishlistSkeleton />
                 </div> : wishlist?.length > 0 ?
-                    <div className="grid grid-cols-1  gap-8">
+                    <div className="grid grid-cols-1  gap-4">
                         {wishlist?.map((item: any) => (
-                            <Card key={item?.post?._id} className="mb-4">
+                            <Card key={item?.post?._id} className="">
                                 <CardContent className="  relative">
                                     <div className="flex items-start flex-col gap-5 sm:gap-4 sm:flex-row">
 

@@ -45,7 +45,7 @@ const useWishlistStore = create<WishlistState>()((set) => ({
   removeFromWishlist: async (itemId) => {
     try {
       const response = await removeFromWishlist(itemId);
-      set({ wishlist: response?.items });
+      // set({ wishlist: response?.items });
       set((state: any) => ({
         wishlist: state.wishlist?.filter((data: any) => data?._id !== itemId),
         wishlistCount: state.wishlist - 1,
