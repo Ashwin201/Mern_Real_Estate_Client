@@ -226,20 +226,20 @@ const Header = () => {
                                 <div className="mt-auto -mx-2 flex gap-2 flex-col">
                                     <Button size={"lg"} className="flex gap-2 items-center w-full" onClick={() => { handleLogOut(), setOpen(false) }} variant={"outline"}><LogIn className=" h-5 w-5 rotate-180" /> &nbsp;Logout</Button>
                                     <Button size={"lg"} className="w-full border-none flex items-center gap-1.5" onClick={() => setOpen(false)}>
-                                        <Link href={"/profile"} aria-label="Link" >
+                                        <Link href={"/profile"} aria-label="Link" className=" flex gap-1.5 items-center">
                                             <UserCircle2 className=" h-5 w-5" />   Profile
                                         </Link>
                                     </Button>
                                 </div>
                             ) : (
-                                <div className="flex flex-col w-full gap-3 mt-auto -mx-2">
-                                    <Link href={"/login"} aria-label="Login">
-                                        <Button size={"lg"} onClick={() => setOpen(false)} variant={"outline"}>
+                                <div className="flex flex-col gap-3 mt-auto -mx-2 w-full">
+                                    <Link href={"/login"} aria-label="Login" className="w-full">
+                                        <Button size={"lg"} onClick={() => setOpen(false)} variant={"outline"} className=" w-full">
                                             Sign In
                                         </Button>
                                     </Link>
-                                    <Link href={"/register"} aria-label="Register">
-                                        <Button size={"lg"} onClick={() => setOpen(false)} >
+                                    <Link href={"/register"} aria-label="Register" className="w-full">
+                                        <Button size={"lg"} onClick={() => setOpen(false)} className=" w-full">
                                             Sign Up
                                         </Button>
                                     </Link>
