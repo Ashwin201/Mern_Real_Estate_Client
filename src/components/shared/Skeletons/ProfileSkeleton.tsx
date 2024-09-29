@@ -5,9 +5,9 @@ import CardSkeletons from './CardSkeletons'
 const ProfileSkeleton = () => {
     return (
         <div className=''>
-            <div className=' flex items-center gap-2'>
+            <div className=' flex items-center justify-center sm:justify-normal gap-2'>
                 <Skeleton className=' w-20 h-20 rounded-full' />
-                <div className=' flex flex-col gap-1'>
+                <div className=' flex flex-col  items-center sm:items-start  gap-2'>
                     <Skeleton className=' w-36 h-6' />
                     <Skeleton className=' w-48 h-5' />
                 </div>
