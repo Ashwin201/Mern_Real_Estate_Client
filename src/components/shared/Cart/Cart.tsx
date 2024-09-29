@@ -23,6 +23,7 @@ function Cart() {
     const { toast } = useToast()
     const [checkoutLoading, setCheckoutLoading] = useState<boolean>(false)
     const [paymentFailed, setPaymentFailed] = useState(false)
+    const [open, setOpen] = useState(false)
     const [postRemoved, setPostRemoved] = useState<boolean>(true)
     useEffect(() => {
         const fetchCartData = async () => {
@@ -68,6 +69,7 @@ function Cart() {
     const resetCartItems = async () => {
         try {
             await resetCart()
+            setOpen(false)
         } catch (error) {
             console.log(error)
         }
@@ -169,19 +171,19 @@ function Cart() {
                                     </div>
                                 </CardContent>
                                 <CardFooter className=' grid grid-cols-1 gap-2 mt-2'>
-                                    <Dialog>
+                                    <Dialog open={open} onOpenChange={setOpen}>
                                         <DialogTrigger>
                                             <Button className="w-full flex gap-2 items-center" variant={"outline"}> <ListRestart className=" h-5 w-5" />Reset  Cart</Button>
                                         </DialogTrigger>
-                                        <DialogContent className=' max-w-[95%] sm:max-w-[420px]'>
-                                            <DialogHeader>
+                                        <DialogContent className=' max-w-[95%] sm:max-w-[420px] rounded-md'>
+                                            <DialogHeader className=' flex flex-col gap-2  items-start'>
                                                 <DialogTitle>Are you absolutely sure?</DialogTitle>
-                                                <DialogDescription>
+                                                <DialogDescription className=' text-start'>
                                                     This action cannot be undone. This will delete all properties from your cart.
                                                 </DialogDescription>
                                             </DialogHeader>
-                                            <DialogFooter className=" justify-end flex w-full gap-2 items-center">
-                                                <Button variant={"outline"}>Cancel</Button>
+                                            <DialogFooter className="  flex w-full gap-2 items-center flex-row justify-end">
+                                                <Button onClick={() => setOpen(false)} variant={"outline"}>Cancel</Button>
                                                 <Button onClick={resetCartItems} >Reset</Button>
                                             </DialogFooter>
                                         </DialogContent>
@@ -206,7 +208,7 @@ function Cart() {
 
             {/* Payment Failed Dialog */}
             <Dialog open={paymentFailed} onOpenChange={setPaymentFailed}>
-                <DialogContent className=' max-w-[95%] sm:max-w-[425px]'>
+                <DialogContent className=' max-w-[95%] sm:max-w-[425px] rounded-md'>
                     <DialogHeader>
                         <DialogTitle className="text-center text-red-600">Payment Failed</DialogTitle>
                         <DialogDescription className=' sr-only'>Payment failed</DialogDescription>

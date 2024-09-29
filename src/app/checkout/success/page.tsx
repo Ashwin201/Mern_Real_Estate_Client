@@ -41,7 +41,7 @@ const CheckSuccessContent = () => {
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
             <Dialog open={true} onOpenChange={() => { }}>
-                <DialogContent className="max-w-[95%] sm:max-w-[425px]">
+                <DialogContent className="max-w-[95%] sm:max-w-[425px] rounded-md">
                     <DialogHeader className='w-full flex flex-col gap-3 items-center justify-center'>
                         <DialogTitle>Payment Successful</DialogTitle>
                         <CheckCircle className="h-16 w-16 text-green-500" />
