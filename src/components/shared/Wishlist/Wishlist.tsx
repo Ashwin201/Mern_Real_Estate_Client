@@ -9,25 +9,43 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import useWishlistStore from '@/store/wishlist'
 import WishlistSkeleton from '../Skeletons/WishlistSkeleton'
+import { useToast } from '@/hooks/use-toast'
 function Wishlist() {
     const { wishlist, removeFromWishlist, fetchWishlist } = useWishlistStore()
     const [loading, setLoading] = useState<boolean>(false)
+    const [wishlistRemove, setwishlistRemove] = useState<boolean>(true)
+    const { toast } = useToast()
     useEffect(() => {
         const fetchWishlistData = async () => {
             try {
-                const response = await fetchWishlist()
-                console.log(response)
-                setLoading(false)
+                if (wishlist?.length === 0 || wishlistRemove) {
+                    await fetchWishlist()
+                    setLoading(false)
+                    setwishlistRemove(false)
+                }
             } catch (error) {
                 console.log(error)
+            } finally {
+                setLoading(false)
             }
         }
         fetchWishlistData()
-    }, [wishlist?.items?.length])
+    }, [wishlistRemove])
     const handleRemoveItem = async (id: any) => {
-        await removeFromWishlist(id)
-        console.log("removed from wishlist")
-    }
+        try {
+            await removeFromWishlist(id)
+            setwishlistRemove(true)
+            toast({
+                title: "Property removed from wishlist."
+            });
+        } catch (error) {
+            console.log(error);
+            toast({
+                variant: "destructive",
+                title: "Failed to remove property from wishlist."
+            });
+        }
+    };
     return (
         <div className=" mx-4 sm:mx-8 md:mx-16 lg:mx-28 xl:mx-40 mt-20 mb-24">
             <h1 className="text-2xl font-bold mb-2">Your Wishlist</h1>
@@ -38,9 +56,9 @@ function Wishlist() {
                     <WishlistSkeleton />
                     <WishlistSkeleton />
                     <WishlistSkeleton />
-                </div> : wishlist?.items?.length > 0 ?
+                </div> : wishlist?.length > 0 ?
                     <div className="grid grid-cols-1  gap-8">
-                        {wishlist?.items?.map((item: any) => (
+                        {wishlist?.map((item: any) => (
                             <Card key={item?.post?._id} className="mb-4">
                                 <CardContent className="  relative">
                                     <div className="flex items-start flex-col gap-5 sm:gap-4 sm:flex-row">

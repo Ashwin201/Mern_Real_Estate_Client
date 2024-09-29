@@ -34,29 +34,27 @@ const PropertyDetail = ({ id }: any) => {
     }, [])
     // console.log(cart)
     useEffect(() => {
-        const fetchCartData = async () => {
+        const fetchData = async () => {
             try {
                 await fetchCart()
-                // console.log(response)
             } catch (error) {
                 console.log(error)
             }
         }
+        fetchData()
+    }, [cart?.length])
 
-        fetchCartData()
-    }, [cart?.items?.length])
     useEffect(() => {
-
-        const fetchWishlistData = async () => {
+        const fetchData = async () => {
             try {
                 await fetchWishlist()
-                // console.log(response)
             } catch (error) {
                 console.log(error)
             }
         }
-        fetchWishlistData()
-    }, [wishlist?.items?.length])
+        fetchData()
+    }, [wishlist?.length])
+
     const handleAddtoCart = async (id: string) => {
 
         if (!user?.email) {
@@ -67,24 +65,22 @@ const PropertyDetail = ({ id }: any) => {
             router.push("/login")
             return
         }
-        const data: any = cart?.items?.find((item: any) => item?.post?._id === id)
+        const data: any = cart?.some((item: any) => item?.post?._id === id)
+        // console.log(data)
         if (data) {
-            console.log("Item already in cart")
             toast({
                 title: "Property already present in cart"
             })
             return;
-        }
-        try {
-            await addToCart(id)
-            if (!data) {
+        } else {
+            try {
+                await addToCart(id)
                 toast({
                     title: "Property added to cart."
                 })
-                return;
+            } catch (error) {
+                console.log(error)
             }
-        } catch (error) {
-            console.log(error)
         }
     }
     const handleAddtoWishlist = async (id: string) => {
@@ -97,24 +93,24 @@ const PropertyDetail = ({ id }: any) => {
             router.push("/login")
             return
         }
-        const data: any = wishlist?.items?.find((item: any) => item?.post?._id === id)
+        const data: any = wishlist?.some((item: any) => item?.post?._id === id)
+        console.log(data)
         if (data) {
             toast({
                 title: "Property already present in wishlist."
             })
             return;
         }
-        try {
-            const response = await addToWishlist(id)
-            if (!data) {
+        else {
+            try {
+                await addToWishlist(id)
                 toast({
                     title: "Property added to wishlist."
                 })
-                return;
+                // console.log(response)
+            } catch (error) {
+                console.log(error)
             }
-            console.log(response)
-        } catch (error) {
-            console.log(error)
         }
     }
     return (

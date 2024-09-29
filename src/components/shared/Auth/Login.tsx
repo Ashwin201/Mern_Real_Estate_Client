@@ -180,7 +180,7 @@ const Login = () => {
 
                                         />
 
-                                        <Button type="submit" className="w-full">Login</Button>
+                                        <Button type="submit" size={"lg"} className="w-full">Login</Button>
                                     </form>
                                 </Form>
                             </CardContent>

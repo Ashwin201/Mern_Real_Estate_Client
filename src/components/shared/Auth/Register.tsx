@@ -199,7 +199,7 @@ const Register = () => {
                                             </FormItem>
                                         )}
                                     /> */}
-                                <Button type="submit" className="w-full">Register</Button>
+                                <Button type="submit" size={"lg"} className="w-full">Register</Button>
                             </form>
                         </Form>
                     </CardContent>

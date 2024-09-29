@@ -17,15 +17,12 @@ const Profile = () => {
         const fetchData = async () => {
             try {
                 const response = await userPosts()
-                // console.log(response)
                 if (response?.status === 201) {
-
                     setData(response?.data?.posts)
                     setLoading(false)
                 } else {
                     setLoading(false)
                 }
-                // console.log(response)
             } catch (error) {
                 console.log(error)
             }

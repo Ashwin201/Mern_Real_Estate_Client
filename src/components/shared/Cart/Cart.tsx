@@ -25,32 +25,47 @@ function Cart() {
     const [checkoutLoading, setCheckoutLoading] = useState<boolean>(false)
     const [paymentSuccess, setPaymentSuccess] = useState(false)
     const [paymentFailed, setPaymentFailed] = useState(false)
-
+    const [postRemoved, setPostRemoved] = useState<boolean>(true)
     useEffect(() => {
         const fetchCartData = async () => {
             try {
-                await fetchCart()
-                // console.log(response)
-                setLoading(false)
+                if (cart?.length === 0 || postRemoved) {
+                    await fetchCart()
+                    setPostRemoved(false)
+                    setLoading(false)
+                }
             } catch (error) {
                 console.log(error)
+            } finally {
+                setLoading(false)
             }
         }
         fetchCartData()
-    }, [cart?.items?.length])
+    }, [postRemoved])
+    // console.log(cart)
 
     const handleRemoveItem = async (id: any) => {
-        await removeCartItem(id)
-        // console.log(response)
-    }
-
+        try {
+            await removeCartItem(id);
+            setPostRemoved(true)
+            toast({
+                title: "Property removed from cart."
+            });
+        } catch (error) {
+            console.log(error);
+            toast({
+                variant: "destructive",
+                title: "Failed to remove property from cart."
+            });
+        }
+    };
     const calculateTotal = () => {
         interface CartItem {
             post: {
                 price: number;
             };
         }
-        return cart?.items?.reduce((total: number, item: CartItem) => total + item?.post?.price, 0).toLocaleString('en-IN') + '$' || '0.00'
+        return cart?.reduce((total: number, item: CartItem) => total + item?.post?.price, 0).toLocaleString('en-IN') + '$' || '0.00'
     }
     const resetCartItems = async () => {
         try {
@@ -65,7 +80,7 @@ function Cart() {
         try {
             const stripe = await stripePromise
             const body = {
-                cart: cart.items
+                cart: cart
             }
             const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/checkout`, {
                 method: "POST",
@@ -112,10 +127,10 @@ function Cart() {
             {
                 loading ? (
                     <CartSkeleton />
-                ) : cart?.items?.length > 0 ? (
+                ) : cart?.length > 0 ? (
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <div className="md:col-span-2">
-                            {cart?.items?.map((item: any) => (
+                            {cart?.map((item: any) => (
                                 <Card key={item?.post?._id} className="mb-4">
                                     <CardContent className="relative">
                                         <div className="flex items-start flex-col gap-5 sm:gap-4 sm:flex-row">

@@ -21,7 +21,7 @@ const useWishlistStore = create<WishlistState>()((set) => ({
       const response = await getWishlist();
       // console.log(response);
       set({
-        wishlist: response?.wishlist,
+        wishlist: response?.wishlist?.items,
         wishlistCount: response?.wishlist?.items?.length || 0,
       });
     } catch (error) {
@@ -32,7 +32,12 @@ const useWishlistStore = create<WishlistState>()((set) => ({
     try {
       const response = await addToWishlist(postId);
       // console.log(response);
-      set({ wishlist: response?.data });
+      if (response) {
+        set((state) => ({
+          wishlist: response?.items,
+          wishlistCount: state?.wishlistCount + 1,
+        }));
+      }
     } catch (error) {
       console.error(error);
     }
@@ -40,11 +45,10 @@ const useWishlistStore = create<WishlistState>()((set) => ({
   removeFromWishlist: async (itemId) => {
     try {
       const response = await removeFromWishlist(itemId);
-      set({ wishlist: response?.data });
+      set({ wishlist: response?.items });
       set((state: any) => ({
-        wishlist: state.wishlist?.items?.filter(
-          (data: any) => data?._id !== itemId
-        ),
+        wishlist: state.wishlist?.filter((data: any) => data?._id !== itemId),
+        wishlistCount: state.wishlist - 1,
         loading: false,
       }));
     } catch (error) {

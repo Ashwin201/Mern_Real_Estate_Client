@@ -19,11 +19,11 @@ const Property = () => {
                 if (posts?.length === 0) {
                     await fetchPosts()
                     setLoading(false)
-                } else {
-                    setLoading(false)
                 }
             } catch (error) {
                 console.log(error)
+            } finally {
+                setLoading(false)
             }
         }
         fetchData()
