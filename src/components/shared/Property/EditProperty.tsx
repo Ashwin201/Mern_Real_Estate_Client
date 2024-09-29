@@ -53,6 +53,7 @@ const EditProperty = (id: any) => {
     const router = useRouter()
     const [isFetching, setIsFetching] = useState<boolean>(true)
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [open, setOpen] = useState<boolean>(false)
     useEffect(() => {
         if (user?.token?.length === 0) {
             router.push("/login")
@@ -85,6 +86,7 @@ const EditProperty = (id: any) => {
     const handleDelete = async (id: string) => {
         try {
             await removePost(id)
+            setOpen(false)
             // console.log(response)
             toast({
                 title: "Property deleted successfully."
@@ -407,7 +409,7 @@ const EditProperty = (id: any) => {
                         </form>
                     </Form>
                 </>
-                <Dialog >
+                <Dialog open={open} onOpenChange={setOpen} >
                     <DialogTrigger className=" absolute left-4 bottom-4">
                         <Button variant={"destructive"} className=" w-fit ">
                             Delete
@@ -420,8 +422,8 @@ const EditProperty = (id: any) => {
                                 This action cannot be undone. This will permanently delete your property.
                             </DialogDescription>
                         </DialogHeader>
-                        <DialogFooter>
-                            <Button variant={"outline"}>Cancel</Button>
+                        <DialogFooter className=" flex items-center gap-2">
+                            <Button variant={"outline"} onClick={() => setOpen(false)}>Cancel</Button>
                             <Button onClick={() => handleDelete(post?._id)} variant={"destructive"}>Delete</Button>
                         </DialogFooter>
                     </DialogContent>
