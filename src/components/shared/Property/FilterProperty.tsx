@@ -8,7 +8,7 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet"
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -39,13 +39,31 @@ type Filter = z.infer<typeof FilterSchema>;
 
 // Form Component
 const FilterForm = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
-    const [reset, setReset] = useState<boolean>(false)
+    const [reset, setReset] = useState<boolean>(true)
     const { fetchPosts } = usePostStore()
     const form = useForm<Filter>({
         resolver: zodResolver(FilterSchema)
     });
 
-
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                if (reset) {
+                    form.reset({
+                        minPrice: undefined,
+                        maxPrice: undefined,
+                        property: "",
+                        city: ""
+                    });
+                    await fetchPosts()
+                    setReset(false);
+                    setOpen(false)
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    }, []);
     const onSubmit = async (data: Filter) => {
         try {
             // console.log(data)
@@ -54,20 +72,7 @@ const FilterForm = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
                 minPrice: data.minPrice ? Number(data.minPrice) : undefined,
                 maxPrice: data.maxPrice ? Number(data.maxPrice) : undefined,
             };
-            if (reset) {
-                // form.reset({
-                //     minPrice: undefined,
-                //     maxPrice: undefined,
-                //     property: "",
-                //     city: ""
-                // });
-                await fetchPosts()
-                setReset(false)
-            } else {
-                await fetchPosts(requestData)
-                // console.log(response)
-
-            }
+            await fetchPosts(requestData)
             setOpen(false)
         } catch (error) {
             console.log(error)

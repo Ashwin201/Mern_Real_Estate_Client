@@ -116,7 +116,7 @@ const PropertyDetail = ({ id }: any) => {
     return (
         <div className=" mx-4 sm:mx-8 md:mx-16 lg:mx-24 xl:mx-32 mt-20 mb-24">
             {loading ? <PropertyDetailSkeleton /> :
-                <div className="grid md:grid-cols-2 gap-8">
+                <div className="grid md:grid-cols-2 gap-8 md:gap-16">
                     <div className="space-y-4">
                         <ImagesSlider images={post?.images} />
                     </div>
